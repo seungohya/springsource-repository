@@ -70,6 +70,8 @@ public class BoardController {
 			rttr.addFlashAttribute("result","success");
 			rttr.addAttribute("page",cri.getPage());
 			rttr.addAttribute("amount",cri.getAmount());
+			rttr.addAttribute("type",cri.getType());
+			rttr.addAttribute("keyword",cri.getKeyword());
 			return "redirect:/board/list";
 		}
 		else {
@@ -81,8 +83,13 @@ public class BoardController {
 		log.info("삭제 요청" + bno);
 		if (service.remove(bno)) {
 			rttr.addFlashAttribute("result","success");
+			
+			//페이지나누기정보 주소줄에보내기
 			rttr.addAttribute("page",cri.getPage());
 			rttr.addAttribute("amount",cri.getAmount());
+			//검색정보
+			rttr.addAttribute("type",cri.getType());
+			rttr.addAttribute("keyword",cri.getKeyword());
 			return "redirect:/board/list";
 		}
 		return "false";

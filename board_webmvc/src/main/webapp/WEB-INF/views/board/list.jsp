@@ -112,6 +112,8 @@
 <form action="/board/list" id="operForm">
 	<input type="hidden" name="page" value="${pageDTO.criteria.page}" />
 	<input type="hidden" name="amount" value="${pageDTO.criteria.amount}" />
+	<input type="hidden" name="type" value="${pageDTO.criteria.type}" />
+	<input type="hidden" name="keyword" value="${pageDTO.criteria.keyword}" />
 
 </form>
 <script>
