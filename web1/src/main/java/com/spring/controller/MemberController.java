@@ -1,13 +1,18 @@
 package com.spring.controller;
 
+import java.lang.reflect.Member;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.spring.domain.LoginDTO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,18 +43,37 @@ public class MemberController {
 //		System.out.println(req.getParameter("password"));
 //
 //	}
+
+//	@PostMapping("/login")
+//	public void loginPost(@RequestParam("userid")String id , String password) {
+//		log.info("login post...");
+//		
+//		System.out.println("id "+id);
+//		System.out.println("password "+password);
+//	}
 	@PostMapping("/login")
-	public void loginPost(@RequestParam("userid")String id , String password) {
+	public String loginPost(LoginDTO dto ) {
 		log.info("login post...");
 		
-		System.out.println("id "+id);
-		System.out.println("password "+password);
-
+//		model.addAttribute("id",dto.getId());
+		
+		System.out.println("id "+dto.getId());
+		System.out.println("password "+dto.getPassword());
+		return "/member/main";
 	}
 //	@RequestMapping("/register") // http://localhost:8080/member/register
 	@GetMapping("/register") 
 	public void registerGet() {
 		log.info("register...");
 //			return "/member/register";
+	}
+	@PostMapping("/register")
+	public String registerPost(LoginDTO dto ) {
+		log.info("회원가입 요청");
+		log.info(dto.toString());
+		//redirect : 를 해주면 DispatchatServlet 이 동작해서 경로요청이 된다
+		// == response.sendRedirect () 와 같음
+		return "redirect:/member/login";
+		
 	}
 }

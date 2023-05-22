@@ -11,6 +11,7 @@
 	<ul>
 		<li><a href="/member/login">로그인</a></li>
 		<li><a href="/member/register">회원가입</a></li>
+		<li><a href="/board/register">글 등록</a></li>
 	</ul>
 </body>
 </html>

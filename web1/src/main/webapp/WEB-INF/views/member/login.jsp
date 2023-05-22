@@ -10,7 +10,7 @@
 	<h1>Login</h1>
 	<form action="" method="post">
 		<div>
-			<label for="id">id </label> <input type="text" name="userid" id="id" />
+			<label for="id">id </label> <input type="text" name="id" id="id" />
 
 		</div>
 		<div>
