@@ -63,7 +63,7 @@
 		<c:forEach items="${list}" var="list">
 			<tr>
 				<td scope="row">${list.bno}</td>
-				<td><a href="${list.bno}" class="move">${list.title}</a></td>
+				<td><a href="${list.bno}" class="move">${list.title}</a><strong>[${list.replyCnt}]</strong></td>
 				<td>${list.writer}</td>
 				<td>${list.regdate}</td>
 				<td>${list.updatedate}</td>
