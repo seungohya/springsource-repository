@@ -126,20 +126,25 @@ public class BoardController {
 		if (attachList == null || attachList.size() <= 0)
 			return;
 		for (AttachFileDTO dto : attachList) {
+			if (dto == null) {
+				continue;
+			}
 			// 파일 경로
-			Path path = Paths
-					.get("c:\\uploads\\" + dto.getUploadPath() + "\\" + dto.getUuid() + "_" + dto.getFileName());
+			Path path = Paths.get("c:\\uploads\\" + dto.getUploadPath() + "\\" + dto.getUuid() + "_" + dto.getFileName());
 			try {
-				Files.deleteIfExists(path);
-				// 이미지 파일인 경우 썸네일도 제거
-				if (Files.probeContentType(path).startsWith("image")) {
-					Path thumb = Paths.get(
-							"c:\\uploads\\" + dto.getUploadPath() + "\\s_" + dto.getUuid() + "_" + dto.getFileName());
-					Files.deleteIfExists(thumb);
+				if (Files.exists(path)) {
+					Files.deleteIfExists(path);
+					// 이미지 파일인 경우 썸네일도 제거
+					if (Files.probeContentType(path).startsWith("image")) {
+						Path thumb = Paths.get(
+								"c:\\uploads\\" + dto.getUploadPath() + "\\s_" + dto.getUuid() + "_" + dto.getFileName());
+						Files.deleteIfExists(thumb);
+					}
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 	}
+
 }
