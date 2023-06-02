@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -33,18 +34,30 @@ public class TaskTest {
 
 		// 데이터베이스 어제 날짜의 파일 목록 가져오기
 		List<AttachFileDTO> oldList = mapper.oldFiles();
-		List<Path> pathList = new ArrayList<Path>();
-		for (AttachFileDTO dto : oldList) {
-			Path path = Paths
-					.get("c:\\uploads\\" + dto.getUploadPath() + "\\" + dto.getUuid() + "_" + dto.getFileName());
-			pathList.add(path);
-			if (dto.isFileType()) {
-				Path thumb = Paths
-						.get("c:\\uploads\\" + dto.getUploadPath() + "\\s_" + dto.getUuid() + "_" + dto.getFileName());
-				pathList.add(thumb);
-			}
-		}
+//		List<Path> pathList = new ArrayList<Path>();
+//		for (AttachFileDTO dto : oldList) {
+//			Path path = Paths
+//					.get("c:\\uploads\\" + dto.getUploadPath() + "\\" + dto.getUuid() + "_" + dto.getFileName());
+//			pathList.add(path);
+//			if (dto.isFileType()) {
+//				Path thumb = Paths
+//						.get("c:\\uploads\\" + dto.getUploadPath() + "\\s_" + dto.getUuid() + "_" + dto.getFileName());
+//				pathList.add(thumb);
+//			}
+//		}
+		// oldList 를 stream 변환,
+		List<Path> pathList = oldList.stream()
+				.map(dto -> Paths
+						.get("c:\\uploads\\" + dto.getUploadPath() + "\\" + dto.getUuid() + "_" + dto.getFileName()))
+				.collect(Collectors.toList());
+
+		oldList.stream().filter(null)
+				.map(dto -> Paths
+						.get("c:\\uploads\\" + dto.getUploadPath() + "\\s_" + dto.getUuid() + "_" + dto.getFileName()))
+				.forEach(dto -> pathList.add(dto));
 		System.out.println(pathList);
+		
+		
 		// 어제날짜 구해서 폴더에 접근한 후 폴더에 있는 파일 목록 가져오기
 		String yesterday = getFolderYesterDay();
 		File targetDir = Paths.get("c:\\uploads", yesterday).toFile();
@@ -58,11 +71,11 @@ public class TaskTest {
 	}
 
 	private String getFolderYesterDay() {
-	    // 어제 날짜 추출
-	    LocalDate yesterday = LocalDate.now().minusDays(1);
-	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy\\MM\\dd");
-	    String folderPath = yesterday.format(formatter);
-	    return  folderPath.replace("-", File.separator);
+		// 어제 날짜 추출
+		LocalDate yesterday = LocalDate.now().minusDays(1);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy\\MM\\dd");
+		String folderPath = yesterday.format(formatter);
+		return folderPath.replace("-", File.separator);
 	}
 
 //    @Scheduled(fixedDelay = 10000)
