@@ -30,6 +30,10 @@
 		<security:authorize access="!isAuthenticated()">
 			<div class="row">
 				<div class="col">
+					<a href="/security/register" class="btn btn-primary btn-lg btn-block">회원가입</a>
+				</div>
+			<div class="row">
+				<div class="col">
 					<a href="/security/login" class="btn btn-primary btn-lg btn-block">Login</a>
 				</div>
 		</security:authorize>
