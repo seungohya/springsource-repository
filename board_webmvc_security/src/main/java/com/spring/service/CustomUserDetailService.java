@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.spring.domain.CustomUser;
 import com.spring.domain.MemberDTO;
 import com.spring.mapper.MemberMapper;
-@Service("detail")
+//@Service("detail")
 public class CustomUserDetailService implements UserDetailsService {
 	@Autowired
 	private MemberMapper mapper;
